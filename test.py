@@ -13,12 +13,11 @@ def get_number_of_subsequence(s: str, words: list[str]):
     for word in words:
         if is_a_substring(s, word):
             number_of_subsequence += 1
-            print(word)
     return number_of_subsequence
             
                 
 def get_str_freq(string: str) -> dict:
-    freq_count = {}
+    freq_count: dict = {}
 
     for char in string:
         if char in freq_count:
@@ -31,17 +30,19 @@ def is_a_substring(string: str, substring: str) -> bool:
     if substring > string:
         return False
     
-    string_freq = get_str_freq(string)
-    substring_freq = get_str_freq(substring)
+    string_freq: dict = get_str_freq(string)
+    substring_freq: dict = get_str_freq(substring)
 
-    for char in substring_freq:
-        if string_freq[char] is None:
+    for key,value in substring_freq.items():
+        if key not in string_freq:
             return False
-        if substring_freq[char] > substring_freq[char]:
+        if value > substring_freq[key]:
             return False
     return True
 
     
 
 print(get_number_of_subsequence("master", ['ate', 'tea', 'tame', 'tim', 'eat']))
+print(get_str_freq('taofeek'))
+print(list(set(['ate', 'ate', 'eat'])))
             
