@@ -8,32 +8,40 @@ def containsDuplicate(arr):
     return False
 
 
-def number_of_subsequence(s: str, words: list[str]):
-    # count 's' letter frequence
-    str_char_freq = {}
-    for char in s:
-        if char in str_char_freq:
-            str_char_freq[char] = str_char_freq[char] + 1
-        else:
-            str_char_freq[char] = 1
-    
-    # loop words arr and get frequency of letter in each word
+def get_number_of_subsequence(s: str, words: list[str]):
+    number_of_subsequence = 0
     for word in words:
-        word_freq_count = {}
-        for char in word:
-            if char in word_freq_count:
-                word_freq_count[char] = word_freq_count[char] + 1
-            else:
-                word_freq_count[char] = 1
-        for c in word_freq_count.keys():
-            if str_char_freq[c] is None:
-                return
-            if str_char_freq[c] < word_freq_count[c]:
-                return
+        if is_a_substring(s, word):
+            number_of_subsequence += 1
+            print(word)
+    return number_of_subsequence
             
                 
-        
+def get_str_freq(string: str) -> dict:
+    freq_count = {}
+
+    for char in string:
+        if char in freq_count:
+            freq_count[char] += 1
+        else:
+            freq_count[char] = 1
+    return freq_count
+
+def is_a_substring(string: str, substring: str) -> bool:
+    if substring > string:
+        return False
+    
+    string_freq = get_str_freq(string)
+    substring_freq = get_str_freq(substring)
+
+    for char in substring_freq:
+        if string_freq[char] is None:
+            return False
+        if substring_freq[char] > substring_freq[char]:
+            return False
+    return True
+
     
 
-print(number_of_subsequence("aeiouu", []))
+print(get_number_of_subsequence("master", ['ate', 'tea', 'tame', 'tim', 'eat']))
             
